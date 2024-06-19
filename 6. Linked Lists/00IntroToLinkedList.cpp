@@ -158,7 +158,11 @@ int main()
 
     DeleteNodeAtPosition(head, tail, 8);
     print(head);
-
+    DeleteNodeAtPosition(head, tail, 1);
+    print(head);
+    DeleteNodeAtPosition(head, tail, 3);
+    print(head);
+    
     cout << "head: " << head->data << endl;
     cout << "tail: " << tail->data << endl;
 }
