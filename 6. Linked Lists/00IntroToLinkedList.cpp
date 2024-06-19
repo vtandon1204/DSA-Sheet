@@ -20,6 +20,17 @@ public:
         this->data = data;
         this->next = NULL;
     }
+
+    ~Node()
+    {
+        int val = this->data;
+        if (this->next != NULL)
+        {
+            delete next;
+            next = NULL;
+        }
+        cout << "node with data " << val << " is deleted" << endl;
+    }
 };
 
 // **** Traversal ****
@@ -73,6 +84,44 @@ void InsertAtPosition(Node *&head, Node *&tail, int pos, int data)
     temp->next = curr->next;
     curr->next = temp;
 }
+
+// **** Deletion ****
+void DeleteNodeAtPosition(Node *&head, Node *&tail, int pos)
+{
+    Node *curr = head;
+    Node *prev = NULL;
+    if (pos == 1)
+    {
+        Node *temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
+    }
+    else
+    {
+        int cnt = 1;
+        while (cnt < pos)
+        {
+            prev = curr;
+            curr = curr->next;
+            cnt++;
+        }
+        if (curr->next == NULL)
+        {
+            Node *temp = tail;
+            tail = prev;
+            prev->next = temp->next;
+            curr->next = NULL;
+            delete temp;
+        }
+        else
+        {
+            prev->next = curr->next;
+            curr->next = NULL;
+            delete curr;
+        }
+    }
+}
 int main()
 {
     // creating first node
@@ -102,6 +151,12 @@ int main()
     InsertAtPosition(head, tail, 1, 144); // at head
     print(head);
     InsertAtPosition(head, tail, 8, 170); // at tail
+    print(head);
+
+    cout << "head: " << head->data << endl;
+    cout << "tail: " << tail->data << endl;
+
+    DeleteNodeAtPosition(head, tail, 8);
     print(head);
 
     cout << "head: " << head->data << endl;
