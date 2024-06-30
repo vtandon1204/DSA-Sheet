@@ -135,7 +135,7 @@ void DeleteAtPosition(Node *&head, int pos)
         curr->prev = NULL;
         prev->next = curr->next;
         curr->next = NULL;
-        prev->next->prev = prev;
+        // curr->next->prev = prev;
         delete curr;
     }
 }
