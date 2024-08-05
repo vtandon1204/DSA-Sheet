@@ -4,7 +4,6 @@
 // Input: x = 2.00000, n = 10
 // Output: 1024.00000
 
-
 // Input: x = 2.10000, n = 3
 // Output: 9.26100
 
@@ -16,7 +15,9 @@ double calculatePowRecursive(double x, long n)
 
     // Terminating conditions
     if (n == 1)
+    {
         return x;
+    }
     if (n == 0)
         return 1;
 
