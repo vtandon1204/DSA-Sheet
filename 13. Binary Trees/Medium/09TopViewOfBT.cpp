@@ -6,8 +6,8 @@ vector<int> topView(Node *root)
     {
         return ans;
     }
-    map<int, int> mp;
-    queue<pair<Node *, int>> q;
+    map<int, int> mp; // (line,node->val)
+    queue<pair<Node *, int>> q; // (node,line)
     q.push({root, 0});
     while (!q.empty())
     {
