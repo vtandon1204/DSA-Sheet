@@ -8,16 +8,24 @@ using namespace std;
 // Left Child --> (2*i)th index
 // Right Child --> (2*i+1)th index
 // Parent Node --> (i/2)th index
+// Leaf Nodes --> (n/2 +1)th to (n)th index
 
 // *** Insertion of Node in a Heap ***
 // 1. insert the node at the end of an array
 // 2. take it to the right position
-// 3. compare with the parent node (parent>child) & swap
+// 3. compare with the parent node (parent > child) & swap
 
 // *** Deletion of Root Node in a Heap ***
 // 1. put the value of last node in the first node
 // 2. remove the last node (which was initially the root node)
 // 3. propagate root node in its correct position
+
+// *** Heapify Algorithm ***
+// arr --> convert into heap
+// leaf nodes are themselves a heap
+// thus, no need to process the leaf nodes
+// therefore, we'll process from (n/2)th to 0th index
+
 class Heap
 {
 public:
@@ -97,14 +105,48 @@ public:
         cout << endl;
     }
 };
+
+void heapify(vector<int> &arr, int size, int i) // T.C --> O(log(N))
+{
+    int largest = i;
+    int left = 2 * i;
+    int right = 2 * i + 1;
+    if (left < size && arr[largest] < arr[left])
+    {
+        // swap(arr[largest], arr[left]);
+        largest = left;
+    }
+    else if (right < size && arr[largest] < arr[right])
+    {
+        // swap(arr[largest], arr[right]);
+        largest = right;
+    }
+    if (largest != i)
+    {
+        swap(arr[largest], arr[i]);
+        heapify(arr, size, largest);
+    }
+}
 int main()
 {
-    Heap h;
-    h.insertHeap(40);
-    h.insertHeap(30);
-    h.insertHeap(23);
-    h.insertHeap(54);
-    h.deleteHeap();
-    h.print();
+    // Heap h;
+    // h.insertHeap(40);
+    // h.insertHeap(30);
+    // h.insertHeap(23);
+    // h.insertHeap(54);
+    // h.deleteHeap();
+    // h.print();
 
+    vector<int> arr = {-1, 54, 53, 55, 52, 50};
+    int n = arr.size() - 1;
+    for (int i = n / 2; i > 0; i--)
+    {
+        heapify(arr, n, i);
+    }
+    cout << "printing the array: ";
+    for (int i = 1; i <= n; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 }
