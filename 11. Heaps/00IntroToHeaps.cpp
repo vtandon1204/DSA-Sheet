@@ -106,17 +106,17 @@ public:
     }
 };
 
-void heapify(vector<int> &arr, int size, int i) // T.C --> O(log(N))
+void heapify(int arr[], int size, int i) // T.C --> O(log(N))
 {
     int largest = i;
     int left = 2 * i;
     int right = 2 * i + 1;
-    if (left < size && arr[largest] < arr[left])
+    if (left <= size && arr[largest] < arr[left])
     {
         // swap(arr[largest], arr[left]);
         largest = left;
     }
-    else if (right < size && arr[largest] < arr[right])
+    else if (right <= size && arr[largest] < arr[right])
     {
         // swap(arr[largest], arr[right]);
         largest = right;
@@ -125,6 +125,17 @@ void heapify(vector<int> &arr, int size, int i) // T.C --> O(log(N))
     {
         swap(arr[largest], arr[i]);
         heapify(arr, size, largest);
+    }
+}
+
+void HeapSort(int arr[], int n)
+{
+    int size = n;
+    while (size > 1)
+    {
+        swap(arr[size], arr[1]);
+        size--;
+        heapify(arr, size, 1);
     }
 }
 int main()
@@ -137,8 +148,10 @@ int main()
     // h.deleteHeap();
     // h.print();
 
-    vector<int> arr = {-1, 54, 53, 55, 52, 50};
-    int n = arr.size() - 1;
+    int arr[6] = {-1, 54, 53, 55, 52, 50};
+    int n = 5;
+
+    // Heap creation
     for (int i = n / 2; i > 0; i--)
     {
         heapify(arr, n, i);
@@ -149,4 +162,12 @@ int main()
         cout << arr[i] << " ";
     }
     cout << endl;
+
+    // Heap sort
+    HeapSort(arr,n);
+    cout<<"printing the sorted array: "; 
+    for (int i = 1; i <= n; i++)
+    {
+        cout << arr[i] << " ";
+    }
 }
