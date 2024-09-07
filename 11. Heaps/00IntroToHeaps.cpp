@@ -111,16 +111,19 @@ void heapify(int arr[], int size, int i) // T.C --> O(log(N))
     int largest = i;
     int left = 2 * i;
     int right = 2 * i + 1;
+
     if (left <= size && arr[largest] < arr[left])
     {
         // swap(arr[largest], arr[left]);
         largest = left;
     }
-    else if (right <= size && arr[largest] < arr[right])
+
+    if (right <= size && arr[largest] < arr[right])
     {
         // swap(arr[largest], arr[right]);
         largest = right;
     }
+
     if (largest != i)
     {
         swap(arr[largest], arr[i]);
@@ -131,6 +134,7 @@ void heapify(int arr[], int size, int i) // T.C --> O(log(N))
 void HeapSort(int arr[], int n)
 {
     int size = n;
+
     while (size > 1)
     {
         swap(arr[size], arr[1]);
@@ -138,6 +142,7 @@ void HeapSort(int arr[], int n)
         heapify(arr, size, 1);
     }
 }
+
 int main()
 {
     // Heap h;
@@ -151,23 +156,26 @@ int main()
     int arr[6] = {-1, 54, 53, 55, 52, 50};
     int n = 5;
 
-    // Heap creation
     for (int i = n / 2; i > 0; i--)
     {
         heapify(arr, n, i);
     }
-    cout << "printing the array: ";
+
+    cout << "Printing the heapified array: ";
     for (int i = 1; i <= n; i++)
     {
         cout << arr[i] << " ";
     }
     cout << endl;
 
-    // Heap sort
-    HeapSort(arr,n);
-    cout<<"printing the sorted array: "; 
+    HeapSort(arr, n);
+
+    cout << "Printing the sorted array: ";
     for (int i = 1; i <= n; i++)
     {
         cout << arr[i] << " ";
     }
+    cout << endl;
+
+    return 0;
 }
