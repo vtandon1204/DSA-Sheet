@@ -23,7 +23,7 @@ void moveZeroes(vector<int> &nums)
     }
 // **********************************************************************
     int j = -1;
-    for (int i = 0; i < nums.size(); i++)
+    for (int i = 0; i < nums.size(); i++) // find the index where the first zero occurs in the array
     {
         if (nums[i] == 0)
         {
@@ -31,7 +31,7 @@ void moveZeroes(vector<int> &nums)
             break;
         }
     }
-    for (int i = j + 1; i < nums.size(); i++)
+    for (int i = j + 1; i < nums.size(); i++) // now replace the non-zero numbers with zeros coming ahead of that index 
     {
         if (nums[i] != 0)
         {

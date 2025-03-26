@@ -13,12 +13,14 @@ class Graph
 public:
     unordered_map<T, list<T>> adj;
 
-    void addEdge(int u, int v, bool direction)
+    void addEdge(T u, T v, bool direction)
+    // direction = 0 --> undirected graph
+    // direction = 1 --> directed graph
     {
-        adj[u].push_back(v);
+        adj[u].push_back(v); // edge from u to v
         if (direction == 0)
         {
-            adj[v].push_back(u);
+            adj[v].push_back(u); // edge from v to u
         }
     }
 
@@ -38,7 +40,7 @@ public:
 
 vector<vector<int>> printAdjacency(int n, int m, vector<vector<int>> &edges)
 {
-    vector<int> adjacent[n];
+    vector<int> adjacent[n]; // stores the adjacent nodes
     for (int i = 0; i < m; i++)
     {
         int u = edges[i][0];
@@ -46,13 +48,13 @@ vector<vector<int>> printAdjacency(int n, int m, vector<vector<int>> &edges)
         adjacent[u].push_back(v);
         adjacent[v].push_back(u);
     }
-    vector<vector<int>> adjList[n];
+    vector<vector<int>> adjList(n);
     for (int i = 0; i < n; i++)
     {
-        adjList[i].push_back(i);
-        for (int j = 0; j < mj++)
+        adjList[i].push_back(i); // push the node itself first
+        for (int j = 0; j < adjacent[i].size(); j++)
         {
-            adjList[i].push_back(adjacent[i][j]);
+            adjList[i].push_back(adjacent[i][j]); // push corresponding neighbours of node
         }
     }
     return adjList;
