@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+using namespace std;
 int findMin(vector<int> &nums)
 {
     int low = 0;

@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 int first1(vector<int> arr, int n)
 {
     int low = 0;
