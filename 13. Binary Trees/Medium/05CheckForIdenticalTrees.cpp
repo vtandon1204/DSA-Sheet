@@ -1,4 +1,11 @@
 #include <bits/stdc++.h>
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
 bool isIdentical(Node *r1, Node *r2)
 {
     if (!r1 && !r2)

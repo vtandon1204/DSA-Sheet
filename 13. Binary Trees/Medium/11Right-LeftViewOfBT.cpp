@@ -34,6 +34,6 @@ vector<int> rightSideView(TreeNode *root)
 vector<int> leftSideView(TreeNode *root)
 {
     vector<int> leftView;
-    reversePreorder(root, 0, leftView);
+    Preorder(root, 0, leftView);
     return leftView;
 }

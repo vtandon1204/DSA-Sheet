@@ -1,4 +1,11 @@
 #include <bits/stdc++.h>
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+
 bool isSymmetricUtil(Node *root1, Node *root2)
 {
     if (root1 == NULL || root2 == NULL)
