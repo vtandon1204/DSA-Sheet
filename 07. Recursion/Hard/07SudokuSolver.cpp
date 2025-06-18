@@ -1,4 +1,6 @@
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
+using namespace std;
+
 // bool isSafe(int row, int col, vector<vector<char>> &sudoku, char val)
 // {
 //     int n = sudoku.size();
@@ -56,21 +58,20 @@
 //     solve(board);
 // }
 
-#include <bits/stdc++.h>
 bool isSafe(int row, int col, vector<vector<int>> &sudoku, int val)
 {
     int n = sudoku.size();
     for (int i = 0; i < n; i++)
     {
-        if (sudoku[row][i] == val)
+        if (sudoku[row][i] == val) // row check
         {
             return false;
         }
-        if (sudoku[i][col] == val)
+        if (sudoku[i][col] == val) // column check
         {
             return false;
         }
-        if (sudoku[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == val)
+        if (sudoku[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == val) // grid check
         {
             return false;
         }
@@ -111,8 +112,5 @@ bool solve(vector<vector<int>> &sudoku)
 }
 void solveSudoku(vector<vector<int>> &sudoku)
 {
-    // Write your code here
-    // No need to print the final sudoku
-    // Just fill the values in the given matrix
     solve(sudoku);
 }
