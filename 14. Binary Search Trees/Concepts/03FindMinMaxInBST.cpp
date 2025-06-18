@@ -1,19 +1,27 @@
 #include <bits/stdc++.h>
-pair<int, int> MinMaxInBST(Node *root)
+using namespace std;
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+pair<int, int> MinMaxInBST(TreeNode *root)
 {
-    int min_val = root->data;
-    int max_val = root->data;
-    Node *temp = root;
-    while (root->left)
+    int min_val = root->val;
+    int max_val = root->val;
+    TreeNode *temp = root;
+    while (temp->left)
     {
-        root = root->left;
-        min_val = root->data;
+        temp = temp->left;
+        min_val = temp->val;
     }
-    root = node;
+    temp = root;
     while (root->right)
     {
-        root = root->right;
-        max_val = root->data;
+        temp = temp->right;
+        max_val = temp->val;
     }
     pair<int, int> ans;
     ans.first = min_val;
