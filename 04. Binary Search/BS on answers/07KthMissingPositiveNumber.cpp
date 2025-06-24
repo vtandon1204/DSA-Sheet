@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 int findKthPositive(vector<int> &arr, int k)
 {
     int n = arr.size();

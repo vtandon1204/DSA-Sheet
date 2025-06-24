@@ -1,40 +1,37 @@
 #include <bits/stdc++.h>
-int countStudents(vector<int> &arr, int pages)
+using namespace std;
+
+int cntSplits(vector<int> &arr, int mid)
 {
-    long long pagesStudent = 0;
-    int student = 1;
+    long long sum = 0;
+    int cnt = 1;
     for (int i = 0; i < arr.size(); i++)
     {
-        if (pagesStudent + arr[i] <= pages)
+        if (sum + arr[i] <= mid)
         {
-            pagesStudent += arr[i];
+            sum += arr[i];
         }
         else
         {
-            student++;
-            pagesStudent = arr[i];
+            cnt++;
+            sum = arr[i];
         }
     }
-    return student;
+    return cnt;
 }
-int findPages(vector<int> &arr, int n, int m)
+int splitArray(vector<int> &nums, int k)
 {
-    // Write your code here.
-    if (m > n)
+    int n = nums.size();
+    if (k > n)
         return -1;
 
-    int low = *max_element(arr.begin(), arr.end());
-    int high = accumulate(arr.begin(), arr.end(), 0);
+    int low = *max_element(nums.begin(), nums.end());
+    int high = accumulate(nums.begin(), nums.end(), 0);
 
-    // for (int pages = low; pages <= high; pages++) {
-    //     if (countStudents(arr, pages) == m) {
-    //         return pages;
-    //     }
-    // }
     while (low <= high)
     {
         int mid = (high + low) / 2;
-        if (countStudents(arr, mid) > m)
+        if (cntSplits(nums, mid) > k)
         {
             low = mid + 1;
         }
@@ -44,8 +41,4 @@ int findPages(vector<int> &arr, int n, int m)
         }
     }
     return low;
-}
-int splitArray(vector<int> &nums, int k)
-{
-    return findPages(nums, nums.size(), k);
 }

@@ -1,49 +1,38 @@
 #include <bits/stdc++.h>
-int accumulate(vector<int> arr)
+using namespace std;
+
+int cntPainters(vector<int> &arr, int mid)
 {
-    int sum = 0;
-    for (int i : arr)
-    {
-        sum += i;
-    }
-    return sum;
-}
-int countStudents(vector<int> &arr, int pages)
-{
-    long long pagesStudent = 0;
-    int student = 1;
+    long long sum = 0;
+    int cnt = 1;
+
     for (int i = 0; i < arr.size(); i++)
     {
-        if (pagesStudent + arr[i] <= pages)
+        if (sum + arr[i] <= mid)
         {
-            pagesStudent += arr[i];
+            sum += arr[i];
         }
         else
         {
-            student++;
-            pagesStudent = arr[i];
+            cnt++;
+            sum = arr[i];
         }
     }
-    return student;
+    return cnt;
 }
-int findPages(vector<int> arr, int n, int m)
+int findLargestMinDistance(vector<int> &boards, int k)
 {
-    // Write your code here.
-    if (m > n)
+    int n = boards.size();
+    if (k > n)
         return -1;
 
-    int low = *max_element(arr.begin(), arr.end());
-    int high = accumulate(arr);
+    int low = *max_element(boards.begin(), boards.end());
+    int high = accumulate(boards.begin(), boards.end(), 0);
 
-    // for (int pages = low; pages <= high; pages++) {
-    //     if (countStudents(arr, pages) == m) {
-    //         return pages;
-    //     }
-    // }
     while (low <= high)
     {
         int mid = (high + low) / 2;
-        if (countStudents(arr, mid) > m)
+        if (cntPainters(boards, mid) > k)
         {
             low = mid + 1;
         }
@@ -53,10 +42,4 @@ int findPages(vector<int> arr, int n, int m)
         }
     }
     return low;
-}
-int findLargestMinDistance(vector<int> &boards, int k)
-{
-    //    Write your code here.
-    return findPages(boards, boards.size(), k);
-    // return ans;
 }

@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
-ibool place(vector<int> &arr, int dist, int cows)
+using namespace std;
+
+bool place(vector<int> &arr, int dist, int cows)
 {
     int cntCows = 1;
     int last = arr[0];
