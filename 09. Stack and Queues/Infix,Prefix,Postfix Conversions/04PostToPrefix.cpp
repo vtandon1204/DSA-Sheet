@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 string postToPre(string post_exp)
 {
     int i = 0;

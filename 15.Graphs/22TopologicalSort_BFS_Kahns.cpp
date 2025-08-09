@@ -7,7 +7,7 @@ vector<int> topologicalSort(vector<vector<int>>& adj) {
     vector<int> indegree(v);
 
     for (int i = 0; i < v; i++) {  
-        for (int j : adj[i]) { // Corrected to iterate over vector
+        for (int j : adj[i]) {
             indegree[j]++;
         }
     }
@@ -18,7 +18,7 @@ vector<int> topologicalSort(vector<vector<int>>& adj) {
         if(indegree[i]==0){
             q.push(i);
         }
-    }
+    } 
 
     // do BFS
     vector<int> ans;

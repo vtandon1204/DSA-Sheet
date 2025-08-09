@@ -21,7 +21,7 @@ void dfs(unordered_map<int, list<int>> &adjList, vector<bool> &visited, vector<i
         }
     }
 }
-vector<int> BFS(int v, int e, vector<vector<int>> &edges)
+vector<vector<int>> DFS(int v, int e, vector<vector<int>> &edges)
 {
     unordered_map<int, list<int>> adjList;
     vector<vector<int>> ans;

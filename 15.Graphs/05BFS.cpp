@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void prepareAdjList(unordered_map<int, list<int>> &adjList, vector<pair<int>> &edges)
+void prepareAdjList(unordered_map<int, list<int>> &adjList, vector<pair<int, int>> &edges)
 {
     for (int i = 0; i < edges.size(); i++)
     {
@@ -33,7 +33,7 @@ void bfs(unordered_map<int, list<int>> &adjList, vector<bool> &visited, vector<i
         }
     }
 }
-vector<int> BFS(int vertex, vector<pair<int>> edges)
+vector<int> BFS(int vertex, vector<pair<int, int>> edges)
 {
     unordered_map<int, list<int>> adjList;
     vector<int> ans;
