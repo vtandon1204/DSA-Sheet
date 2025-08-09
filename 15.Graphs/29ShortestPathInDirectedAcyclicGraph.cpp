@@ -1,56 +1,64 @@
-void dfs()
-vector<int> shortestPath(vector<pair<int, pair<int,int>>> edges, int n, int m, int s)
+#include <bits/stdc++.h>
+using namespace std;
+
+void dfs(int node, unordered_map<int, list<pair<int, int>>> &adjList, vector<bool> &vis, stack<int> &st)
 {
-    // n -> number of nodes
-    // m -> number of edges
-    // s -> source node
-    // edges -> vector of pairs of edges
+    vis[node] = true;
 
-    // create adj list
-    unordered_map<int, list<pair<int,int>>> adj;
-    for (int i = 0; i < m; i++)
+    for (auto it : adjList[node])
     {
-        int u = edges[i].first;
-        int v = edges[i].second;
-
-        adj[u].push_back(v);
-    }
-
-    // required data structures
-    vector<bool> visited(n, false);
-    stack<int> st;
-
-    while (!q.empty())
-    {
-        int frontNode = q.front();
-        q.pop();
-
-        for (auto neighbour : adj[frontNode])
+        if (!vis[it.first])
         {
-            if (!visited[neighbour])
+            dfs(it.first, adjList, vis, st);
+        }
+    }
+    st.push(node);
+}
+vector<int> shortestPath(int V, int E, vector<vector<int>> &edges)
+{
+    // code here
+    unordered_map<int, list<pair<int, int>>> adjList;
+    for (int i = 0; i < E; i++)
+    {
+        int u = edges[i][0];
+        int v = edges[i][1];
+        int wt = edges[i][2];
+        adjList[u].push_back({v, wt});
+    }
+    vector<bool> vis(V, false);
+    stack<int> st;
+    for (int i = 0; i < V; i++)
+    {
+        if (!vis[i])
+        {
+            dfs(i, adjList, vis, st);
+        }
+    }
+    vector<int> dist(V, INT_MAX);
+    int src = 0;
+    dist[src] = 0;
+    while (!st.empty())
+    {
+        int node = st.top();
+        st.pop();
+        int nodeDist = dist[node];
+        if (dist[node] != INT_MAX)
+        {
+            for (auto it : adjList[node])
             {
-                q.push(neighbour);
-                visited[neighbour] = true;
-                parent[neighbour] = frontNode;
+                int neigh = it.first;
+                int neighDist = it.second;
+                if (nodeDist + neighDist < dist[neigh])
+                {
+                    dist[neigh] = neighDist + nodeDist;
+                }
             }
         }
     }
-
-    // if target node is not reachable from source node
-    if (parent[t] == -1)
-        return {-1};
-
-    // if target node is reachable from source node
-    // then we need to backtrack the path from target node to source node
-    // and return the path in reverse order
-    vector<int> path;
-    int curr = t;
-    while (curr != s)
+    for (int i = 0; i < V; i++)
     {
-        path.push_back(curr);
-        curr = parent[curr];
+        if (dist[i] == INT_MAX)
+            dist[i] = -1;
     }
-    path.push_back(s);
-    reverse(path.begin(), path.end());
-    return path;
+    return dist;
 }
