@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void dfs(int node, int parent, int timer, unordered_map<int, list<int>> &adjList,
+void dfs(int node, int parent, int &timer, unordered_map<int, list<int>> &adjList,
          vector<int> &time, vector<int> &low, vector<int> &vis,
          vector<vector<int>> &ans)
 {
@@ -46,6 +46,7 @@ vector<vector<int>> criticalConnections(int n,
     vector<int> time(n), low(n), vis(n, 0);
 
     vector<vector<int>> ans;
-    dfs(0, -1, 1, adjList, time, low, vis, ans);
+    int timer = 1;
+    dfs(0, -1, timer, adjList, time, low, vis, ans);
     return ans;
 }
