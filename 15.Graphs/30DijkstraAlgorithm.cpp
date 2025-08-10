@@ -48,3 +48,57 @@ vector<int> dijkstra(int V, vector<vector<int>> &edges, int src)
     }
     return dist;
 }
+
+vector<int> dijkstra(int V, vector<vector<int>> &edges, int src, int dest) {
+    unordered_map<int, vector<pair<int, int>>> adjList;
+    set<pair<int, int>> st;
+    vector<int> dist(V, INT_MAX);
+    vector<int> parent(V, -1); // Track parent for path reconstruction
+
+    // Build adjacency list
+    for (auto &e : edges) {
+        int u = e[0], v = e[1], wt = e[2];
+        adjList[u].push_back({v, wt});
+        adjList[v].push_back({u, wt});
+    }
+
+    dist[src] = 0;
+    st.insert({0, src});
+
+    while (!st.empty()) {
+        auto [nodeDistance, node] = *st.begin();
+        st.erase(st.begin());
+
+        for (auto [neighbour, wt] : adjList[node]) {
+            int totalDistance = nodeDistance + wt;
+            if (totalDistance < dist[neighbour]) {
+                if (dist[neighbour] != INT_MAX) {
+                    st.erase({dist[neighbour], neighbour});
+                }
+                dist[neighbour] = totalDistance;
+                parent[neighbour] = node; // Store parent
+                st.insert({totalDistance, neighbour});
+            }
+        }
+    }
+
+    // Reconstruct the path from src to dest
+    vector<int> path;
+    if (dist[dest] == INT_MAX) {
+        cout << "No path exists\n";
+        return {};
+    }
+
+    for (int at = dest; at != -1; at = parent[at]) {
+        path.push_back(at);
+    }
+    reverse(path.begin(), path.end());
+
+    // Print distance and path
+    cout << "Shortest Distance from " << src << " to " << dest << " = " << dist[dest] << "\n";
+    cout << "Path: ";
+    for (int node : path) cout << node << " ";
+    cout << "\n";
+
+    return path;
+}
