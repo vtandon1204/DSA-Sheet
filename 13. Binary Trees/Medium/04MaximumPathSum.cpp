@@ -1,4 +1,12 @@
 #include <bits/stdc++.h>
+using namespace std;
+struct TreeNode
+{
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+};
+
 int maxSum = INT_MIN;
 int func(TreeNode *root)
 {

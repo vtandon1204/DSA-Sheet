@@ -1,12 +1,21 @@
 #include <bits/stdc++.h>
-vector<vector<int>> zigzagLevelOrder(TreeNode *root)
+using namespace std;
+
+struct Node
+{
+    int val;
+    Node* left;
+    Node* right;
+};
+
+vector<vector<int>> zigzagLevelOrder(Node *root)
 {
     vector<vector<int>> ans;
     if (!root)
     {
         return ans;
     }
-    queue<TreeNode *> q;
+    queue<Node *> q;
     q.push(root);
     bool leftToRight = true;
     while (!q.empty())
@@ -15,7 +24,7 @@ vector<vector<int>> zigzagLevelOrder(TreeNode *root)
         vector<int> temp(n);
         for (int i = 0; i < n; i++)
         {
-            TreeNode *node = q.front();
+            Node *node = q.front();
             q.pop();
             int index = leftToRight ? i : (n - 1 - i);
             // int index;

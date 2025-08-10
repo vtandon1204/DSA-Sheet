@@ -1,4 +1,12 @@
 #include <bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+};
 bool isLeaf(Node *node)
 {
     if (!node->left && !node->right)
