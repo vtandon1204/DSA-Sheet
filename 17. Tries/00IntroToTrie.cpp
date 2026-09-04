@@ -1,184 +1,92 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
-class TrieNode
+class Node
 {
 public:
-    char data;
-    TrieNode *children[26];
-    bool isTerminal;
+    Node *links[26] = {NULL};
+    bool flag = false;
 
-    TrieNode(char ch)
+    bool containsChar(char ch) { return (links[ch - 'a'] != NULL); }
+
+    void putChar(char ch, Node *node) { links[ch - 'a'] = node; }
+
+    Node *getChar(char ch) { return links[ch - 'a']; }
+
+    void setEnd()
     {
-        data = ch;
+        flag = true; // because flag of terminal node is true
+    }
+
+    bool isEnd() { return flag; }
+    ~Node()
+    {
         for (int i = 0; i < 26; i++)
         {
-            children[i] = NULL;
+            if (links[i] != nullptr)
+            {
+                delete links[i];
+                links[i] = nullptr;
+            }
         }
-        isTerminal = false;
     }
 };
-
 class Trie
 {
 public:
-    TrieNode *root;
-    Trie()
+    Node *root;
+    Trie() { root = new Node(); }
+
+    void insert(string word)
     {
-        root = new TrieNode('\0');
-    }
-    // void insertUtil(TrieNode *root, string word)
-    // {
-    //     // base case
-    //     if (word.length() == 0)
-    //     {
-    //         root->isTerminal = true;
-    //         return;
-    //     }
-    //     // assumption --> word in caps only
-    //     char ch = toupper(word[0]);
-    //     int index = ch - 'A';
-    //     TrieNode *child;
-    //     if (root->children[index] != NULL)
-    //     { // present
-    //         child = root->children[index];
-    //     }
- queries.size()   //     else
-    //     { // absent
-    //         child = new TrieNode(ch);
-    //         root->children[index] = child;
-    //     }
-    //     // recursion
-    //     insertUtil(child, word.substr(1));
-    // }
-    // void insertWord(string word)
-    // {
-    //     insertUtil(root, word);
-    // }
-
-    // bool searchUtil(TrieNode *root, string word)
-    // {
-    //     // base case
-    //     if (word.length() == 0)
-    //     {
-    //         return root->isTerminal;
-    //     }
-    //     char ch = toupper(word[0]);
-    //     int index = ch - 'A';
-    //     TrieNode *child;
-    //     if (root->children[index] != NULL)
-    //     {
-    //         child = root->children[index];
-    //     }
-    //     else
-    //     {
-    //         return false;
-    //     }
-    //     return searchUtil(child, word.substr(1));
-    // }
-    // bool searchWord(string word)
-    // {
-    //     return searchUtil(root, word);
-    // }
-    void insertUtil(TrieNode *root, const string &word, int index)
-    {
-        // base case
-        if (index == word.length())
+        Node *node = root;
+        for (char ch : word)
         {
-            root->isTerminal = true;
-            return;
+            if (!node->containsChar(ch))
+            {
+                node->putChar(ch, new Node());
+            }
+            node = node->getChar(ch);
         }
-
-        char ch = toupper(word[index]);
-        int idx = ch - 'A';
-        TrieNode *child;
-
-        // present
-        if (root->children[idx])
-        {
-            child = root->children[idx];
-        }
-        // absent
-        else
-        {
-            child = new TrieNode(ch);
-            root->children[idx] = child;
-        }
-
-        // recursion for the next character
-        insertUtil(child, word, index + 1);
+        node->setEnd();
     }
 
-    void insertWord(const string &word) { insertUtil(root, word, 0); }
-
-    // Optimized searchUtil by using index instead of substr
-    bool searchUtil(TrieNode *root, const string &word, int index)
+    bool search(string word)
     {
-        // base case
-        if (index == word.length())
+        Node *node = root;
+        for (char ch : word)
         {
-            return root->isTerminal;
+            if (!node->containsChar(ch))
+            {
+                return false;
+            }
+            node = node->getChar(ch);
         }
-
-        char ch = toupper(word[index]);
-        int idx = ch - 'A';
-
-        TrieNode *child;
-        // present
-        if (root->children[idx])
-        {
-            child = root->children[idx];
-        }
-        // absent
-        else
-        {
-            return false;
-        }
-
-        // recursion for the next character
-        return searchUtil(child, word, index + 1);
+        return node->isEnd();
     }
 
-    bool searchWord(const string &word) { return searchUtil(root, word, 0); }
-
-    // Optimized prefixUtil by using index instead of substr
-    bool prefixUtil(TrieNode *root, const string &word, int index)
+    bool startsWith(string prefix)
     {
-        // base case
-        if (index == word.length())
+        Node *node = root;
+        for (char ch : prefix)
         {
-            return true;
+            if (!node->containsChar(ch))
+            {
+                return false;
+            }
+            node = node->getChar(ch);
         }
-
-        char ch = toupper(word[index]);
-        int idx = ch - 'A';
-
-        TrieNode *child;
-        // present
-        if (root->children[idx])
-        {
-            child = root->children[idx];
-        }
-        // absent
-        else
-        {
-            return false;
-        }
-
-        // recursion for the next character
-        return prefixUtil(child, word, index + 1);
-    }
-
-    bool startsWith(const string &prefix)
-    {
-        return prefixUtil(root, prefix, 0);
+        return true;
     }
 };
 int main()
 {
     Trie *t = new Trie();
-    t->insertWord("abcd");
+    t->insert("abcd");
 
-    cout << "Present or not: " << t->searchWord("ABCDE") << endl;
+    cout << "Present or not: " << t->search("abcd") << endl;
+
+    delete t;
+    
     return 0;
 }
