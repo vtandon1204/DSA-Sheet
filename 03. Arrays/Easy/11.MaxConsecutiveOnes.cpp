@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 int findMaxConsecutiveOnes(vector<int> &nums)
 {
     int cnt = 0, maxx = 0;

@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 void merge(int arr[], int l, int m, int r)
 {
     // Your code here

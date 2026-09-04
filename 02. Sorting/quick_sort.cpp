@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 int partition(int arr[], int low, int high)
 {
     // Your code here

@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+using namespace std;
+
 void moveZeroes(vector<int> &nums)
 {
     int i = 0, j = 0;
